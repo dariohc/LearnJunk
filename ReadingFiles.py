@@ -1,33 +1,22 @@
 __author__ = 'Dario Hermida'
 from sys import argv
 
-script, filename = argv
-
-print ("We're going to erase {}.".format(filename))
-print ("If you don't want that, hit Ctrl-C (caretC).")
-print ("If you do want that, hit RETURN.")
-
-input("?")
-
+script, filename, create = argv
+count = 0
 print ("Opening the file:")
-target = open(filename, 'w')
-target.truncate()
+target = open(filename, 'r')
+output = open(create, 'w')
+writing = True
 
-print("Now I'm going to ask you for three lines")
+print ("I'm going to read from the target file:")
 
-line1 = input("line 1:")
-line2 = input("line 2:")
-line3 = input("line 3:")
-
-print ("I'm going to write these on the file.")
-
-target.write(line1)
-target.write("\n")
-target.write(line2)
-target.write("\n")
-target.write(line3)
-target.write("\n")
+while count < 93:
+    s = target.readline()
+    if "League Rules" in s: writing = not writing
+    if writing: output.write(s)
+    count += 1
 
 print ("And finally, we close it")
 
 target.close()
+output.close()
